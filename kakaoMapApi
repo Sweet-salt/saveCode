@@ -32,7 +32,6 @@ const uf_map = (data) => {
             map: map, // 마커를 표시할 지도
             position: positions[i].latlng, // 마커의 위치
             clickable: true, // 클릭 가능
-            index: i
         });
         // 마커에 표시할 인포윈도우를 생성합니다 
         var infowindow = new kakao.maps.InfoWindow({
@@ -53,7 +52,7 @@ const uf_map = (data) => {
             });
             
         })(marker, infowindow);
-
+        
     }
     // 클릭된 마커 상세정보 보기
     $(document).on("click", "map", ({target}) => {
@@ -72,5 +71,23 @@ const uf_map = (data) => {
     })
     $(document).on("click", ".product_close", () => {
         $(".product_detail").css("display", "none")
+    })
+    // 지역별 매물 순위도 클릭시 그 항목의 마커를 지도에 가운데 표시
+    $(document).on("click", "#regionRankSales tr", ({target}) => {
+        let rank = Number($(target).parent().children('td:eq(0)').text()) - 1;
+        let latitude = positions[rank].latlng.La
+        let longitude = positions[rank].latlng.Ma
+        var moveLatLon = new kakao.maps.LatLng(longitude, latitude);
+        map.setCenter(moveLatLon);
+
+        $(".product_detail").css("display", "block")
+        $("#productAddr").text(`${positions[rank].content.addr}`)
+        $("#productDe1").text(`${positions[rank].content.detail1}`)
+        $("#productDe2").text(`${positions[rank].content.detail2}`)
+        $("#productArea").text(`${positions[rank].content.area}`)
+        $("#productMonth").text(`${positions[rank].content.perMonth}`)
+        $("#productDeposit").text(`${positions[rank].content.deposit}`)
+        $("#productPremium").text(`${positions[rank].content.premium}`)
+        $("#productSales").text(`${positions[rank].content.sales}`)
     })
 }
