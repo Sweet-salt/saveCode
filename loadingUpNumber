@@ -1,0 +1,15 @@
+$({ val : 시작값 }).animate({ val : 종료값 }, {
+            duration: 1000, // 시작부터 종료까지 올라갈 속도
+            step: function() {
+                var num = Math.floor(this.val);
+                $(".text_percent").text(`${num}%`);
+            },
+            complete: function() {
+                var num = Math.floor(this.val);
+                $(".text_percent").text(`${num}%`);
+                if(num == 100){
+                   // 로딩페이지 닫는 코드 구현 
+                    cf_unloading();
+                }
+            }
+        });
