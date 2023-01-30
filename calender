@@ -1,0 +1,248 @@
+// js
+const  uf_calendarInit = () => {
+
+    // 날짜 정보 가져오기
+    var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
+    var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
+    var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
+    var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
+  
+    var thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    // 달력에서 표기하는 날짜 객체
+  
+    var currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
+    var currentMonth = thisMonth.getMonth(); // 달력에서 표기하는 월
+    var currentDate = thisMonth.getDate(); // 달력에서 표기하는 일
+
+    // kst 기준 현재시간
+    // console.log(thisMonth);
+
+    // 캘린더 렌더링
+    renderCalender(thisMonth);
+
+    function renderCalender(thisMonth) {
+
+        // 렌더링을 위한 데이터 정리
+        currentYear = thisMonth.getFullYear();
+        currentMonth = thisMonth.getMonth();
+        currentDate = thisMonth.getDate();
+
+        // 이전 달의 마지막 날 날짜와 요일 구하기
+        var startDay = new Date(currentYear, currentMonth, 0);
+        var prevDate = startDay.getDate();
+        var prevDay = startDay.getDay();
+
+        // 이번 달의 마지막날 날짜와 요일 구하기
+        var endDay = new Date(currentYear, currentMonth + 1, 0);
+        var nextDate = endDay.getDate();
+        var nextDay = endDay.getDay();
+
+        // 현재 월 표기
+        $('.year-month').text(`${currentYear}년 ${(currentMonth + 1)}월`);
+
+        // 렌더링 html 요소 생성
+        calendar = document.querySelector('.dates')
+        calendar.innerHTML = '';
+        
+        // 지난달
+        for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
+            calendar.innerHTML = calendar.innerHTML + '<div class="day prev disable">' + i + '</div>'
+        }
+        // 이번달
+        for (var i = 1; i <= nextDate; i++) {
+            calendar.innerHTML = calendar.innerHTML + '<div class="day current">' + i + '</div>'
+        }
+        // 다음달
+        for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {
+            calendar.innerHTML = calendar.innerHTML + '<div class="day next disable">' + i + '</div>'
+        }
+
+        // 오늘 날짜 표기
+        // if (today.getMonth() == currentMonth) {
+        //     todayDate = today.getDate();
+        //     var currentMonthDate = document.querySelectorAll('.dates .current');
+        //     currentMonthDate[todayDate -1].classList.add('today');
+        // }
+    }
+
+    // 이전달로 이동
+    $('.go-prev').on('click', function() {
+        thisMonth = new Date(currentYear, currentMonth - 1, 1);
+        renderCalender(thisMonth);
+    });
+
+    // 다음달로 이동
+    $('.go-next').on('click', function() {
+        thisMonth = new Date(currentYear, currentMonth + 1, 1);
+        renderCalender(thisMonth); 
+    });
+}
+
+// html 
+<div class="sec_cal" id="prev_calender">
+    <div class="cal_nav">
+      <a href="javascript:;" class="nav-btn go-prev">prev</a>
+      <div class="year-month"></div>
+      <a href="javascript:;" class="nav-btn go-next">next</a>
+    </div>
+    <div class="cal_wrap">
+      <div class="days">
+        <div class="day">월</div>
+        <div class="day">화</div>
+        <div class="day">수</div>
+        <div class="day">목</div>
+        <div class="day">금</div>
+        <div class="day">토</div>
+        <div class="day">일</div>
+      </div>
+      <div class="dates"></div>
+    </div>
+</div>
+
+// css
+.sec_cal {
+  width: 250px;
+  margin: 0 auto;
+  font-family: "NotoSansR";
+  position: absolute;
+  z-index: 10;
+  background: #fff;
+  top: 290px;
+  left: 663px;
+  border: 1px solid #dbdbdb;
+  display: none;
+}
+
+#next_calender{
+  width: 250px;
+  margin: 0 auto;
+  font-family: "NotoSansR";
+  position: absolute;
+  z-index: 10;
+  background: #fff;
+  top: 290px;
+  left: 800px;
+  border: 1px solid #dbdbdb;
+  display: none;
+}
+
+.sec_cal .cal_nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 70px;
+}
+
+.sec_cal .cal_nav .year-month,
+.sec_cal .cal_nav .year-month2 {
+  width: 180px;
+  text-align: center;
+  line-height: 1;
+  margin-top: 5px;
+}
+
+.sec_cal .cal_nav .nav {
+  display: flex;
+  border: 1px solid #333333;
+  border-radius: 5px;
+}
+
+.sec_cal .cal_nav .go-prev,
+.sec_cal .cal_nav .go-next,
+.sec_cal .cal_nav .go-prev2,
+.sec_cal .cal_nav .go-next2 {
+  display: block;
+  width: 30px;
+  height: 20px;
+  font-size: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.sec_cal .cal_nav .go-prev::before,
+.sec_cal .cal_nav .go-next::before,
+.sec_cal .cal_nav .go-prev2::before,
+.sec_cal .cal_nav .go-next2::before {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 5px;
+  border: 1px solid #000;
+  border-width: 2px 2px 0 0;
+  transition: border 0.1s;
+}
+
+.sec_cal .cal_nav .go-prev:hover::before,
+.sec_cal .cal_nav .go-next:hover::before,
+.sec_cal .cal_nav .go-prev2:hover::before,
+.sec_cal .cal_nav .go-next2:hover::before {
+  border-color: #ed2a61;
+}
+
+.sec_cal .cal_nav .go-prev::before,
+.sec_cal .cal_nav .go-prev2::before {
+  transform: rotate(-135deg);
+}
+
+.sec_cal .cal_nav .go-next::before,
+.sec_cal .cal_nav .go-next2::before {
+  transform: rotate(45deg);
+}
+
+.sec_cal .cal_wrap {
+  padding-top: 10px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.sec_cal .cal_wrap .days {
+  display: flex;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.sec_cal .cal_wrap::after {
+  top: 368px;
+}
+
+.sec_cal .cal_wrap .day {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% / 7);
+  text-align: left;
+  color: #999;
+  font-size: 12px;
+  text-align: center;
+  border-radius:5px
+}
+.sec_cal .cal_wrap .day:hover{
+  background-color: rgb(192, 192, 192);
+  color: #fff !important;
+  cursor: pointer;
+}
+
+.current.today {background: rgb(242 242 242);}
+
+.sec_cal .cal_wrap .dates, 
+.sec_cal .cal_wrap .dates2{
+  display: flex;
+  flex-flow: wrap;
+  height: 200px;
+}
+
+.sec_cal .cal_wrap .day:nth-child(7n -1) {
+  color: #3c6ffa;
+}
+
+.sec_cal .cal_wrap .day:nth-child(7n) {
+  color: #ed2a61;
+}
+
+.sec_cal .cal_wrap .day.disable {
+  color: #ddd;
+}
