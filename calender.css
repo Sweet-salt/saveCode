@@ -1,0 +1,196 @@
+.sec_cal {
+  width: 250px;
+  margin: 0 auto;
+  font-family: "NotoSansR";
+  position: absolute;
+  z-index: 10;
+  background: #fff;
+  top: 145px;
+  left: 145px;
+  border: 1px solid #dbdbdb;
+  display: none;
+  cursor: pointer;
+}
+
+.sec_cal .cal_nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 70px;
+}
+
+.sec_cal .cal_nav .year-month,
+.sec_cal .cal_nav .year-month2 {
+  width: 180px;
+  text-align: center;
+  line-height: 1;
+  margin-top: 5px;
+}
+.month_select_option{
+  position: absolute;
+  height: 200px;
+  top: 175px;
+  left: 224px;
+  z-index: 10;
+  background: #fff;
+  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  display: none;
+}
+.month_select_option2{
+  position: absolute;
+  height: 200px;
+  top: 175px;
+  left: 358px;
+  z-index: 10;
+  background: #fff;
+  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  display: none;
+}
+.option_detail{
+  height: 15px;
+  width: 80px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px;
+  border: 1px solid #dbdbdb;
+}
+.option_detail:hover{
+  background-color: #dbdbdb;
+  color: #fff !important;
+}
+.sec_cal .cal_nav .nav {
+  display: flex;
+  border: 1px solid #333333;
+  border-radius: 5px;
+}
+.sec_cal .cal_nav .go-prev,
+.sec_cal .cal_nav .go-prev2{
+  margin-left: 5px;
+}
+.sec_cal .cal_nav .go-next,
+.sec_cal .cal_nav .go-next2{
+  margin-right: 5px;
+}
+.sec_cal .cal_nav .go-prev,
+.sec_cal .cal_nav .go-next,
+.sec_cal .cal_nav .go-prev2,
+.sec_cal .cal_nav .go-next2 {
+  display: block;
+  width: 30px;
+  height: 20px;
+  font-size: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.sec_cal .cal_nav .go-prev::before,
+.sec_cal .cal_nav .go-next::before,
+.sec_cal .cal_nav .go-prev2::before,
+.sec_cal .cal_nav .go-next2::before {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 5px;
+  border: 1px solid #000;
+  border-width: 2px 2px 0 0;
+  transition: border 0.1s;
+}
+
+.sec_cal .cal_nav .go-prev:hover::before,
+.sec_cal .cal_nav .go-next:hover::before,
+.sec_cal .cal_nav .go-prev2:hover::before,
+.sec_cal .cal_nav .go-next2:hover::before {
+  border-color: #ed2a61;
+}
+
+.sec_cal .cal_nav .go-prev::before,
+.sec_cal .cal_nav .go-prev2::before {
+  transform: rotate(-135deg);
+}
+
+.sec_cal .cal_nav .go-next::before,
+.sec_cal .cal_nav .go-next2::before {
+  transform: rotate(45deg);
+}
+
+.sec_cal .cal_wrap {
+  padding-top: 10px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.sec_cal .cal_wrap .days {
+  display: flex;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.sec_cal .cal_wrap::after {
+  top: 368px;
+}
+
+.sec_cal .cal_wrap .day {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% / 7);
+  text-align: left;
+  color: #999;
+  font-size: 12px;
+  text-align: center;
+  border-radius:5px
+}
+.current:hover{
+  background-color: rgb(192, 192, 192);
+  color: #fff !important;
+  
+}
+
+.current.today {background: rgb(242 242 242);}
+
+.sec_cal .cal_wrap .dates, 
+.sec_cal .cal_wrap .dates2{
+  display: flex;
+  flex-flow: wrap;
+  height: 200px;
+}
+
+.sec_cal .cal_wrap .day:nth-child(7n -1) {
+  color: #3c6ffa;
+}
+
+.sec_cal .cal_wrap .day:nth-child(7n) {
+  color: #ed2a61;
+}
+
+.sec_cal .cal_wrap .day.disable {
+  color: #ddd;
+}
+
+/* 달력 스크롤바 디자인 */
+.month_select_option::-webkit-scrollbar,
+.month_select_option2::-webkit-scrollbar {
+  width: 3px;
+}
+.month_select_option::-webkit-scrollbar-thumb,
+.month_select_option2::-webkit-scrollbar-thumb {
+  background-color: #2d3035;
+  border-radius: 10px;
+}
+.month_select_option::-webkit-scrollbar-track,
+.month_select_option2::-webkit-scrollbar-track {
+  background-color: grey;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
+}
