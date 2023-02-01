@@ -13,8 +13,8 @@
 로딩진행상황을 숫자로 보여주는 코드입니다. 
 
 ## calender
-![image](https://user-images.githubusercontent.com/79562182/215960717-5f7f03da-ed82-4189-a893-f3d9ed2f15c8.png)
-라이브러리를 사용해서 구현하는 것이 불편하여 직업 달력 그림
+![image](https://user-images.githubusercontent.com/79562182/215960717-5f7f03da-ed82-4189-a893-f3d9ed2f15c8.png) <br>
+라이브러리를 사용해서 구현하는 것이 불편하여 직업 달력 그림  <br>
 구현한 기능들
   - 이전 / 다음 버튼을 누르면 달력을 그림
   - 주말 체크 가능 -> 토요일은 파란색 일요일은 빨간색으로 표시
