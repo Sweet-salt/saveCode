@@ -27,3 +27,10 @@
 
 ## touchSlide
 터치 시작점 과 종료지점을 찾아서 이전으로 넘길지 다음으로 넘길지 정함
+
+## kakaoShare
+카카오톡 공유하기 기능 구현 
+ - sendLinkCustom
+  - 카카오 디벨로퍼 사이트에서 설정한 화면을 공유함
+ - sendLinkDefault
+  - 직접 코드내에서 설정한 화면을 공유함
